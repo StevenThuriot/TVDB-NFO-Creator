@@ -1,0 +1,40 @@
+ {
+  "name": "TVDB NFO Creator",
+  
+  "version": "1.0",
+	
+  "manifest_version": 2,
+  
+  "description": "Save TVDB pages as an NFO which can be used for scraping in XBMC.",
+  
+  "icons" : {
+	  "48" : "icon48.png",
+	  "128" : "icon128.png"
+	},
+  
+  "permissions": ["tabs", "declarativeContent", "http://www.thetvdb.com/", "http://thetvdb.com/"],
+  
+  "background": {
+    "scripts": ["background.js"],
+	"persistent": false
+  },
+  
+ "content_scripts": [ {
+    "js": [ "jquery.min.js", "shared.js", "episodeContent.js" ],
+    "matches": [ "http://thetvdb.com/?tab=episode&seriesid=*&seasonid=*&id=*", "http://www.thetvdb.com/?tab=episode&seriesid=*&seasonid=*&id=*"],
+    "run_at": "document_end"
+  },
+  {
+    "js": [ "jquery.min.js", "shared.js", "seriesContent.js" ],
+    "matches": [ "http://thetvdb.com/?tab=series&id=*", "http://www.thetvdb.com/?tab=series&id=*"],
+    "run_at": "document_end"
+  }],
+  
+  "page_action": {
+    "default_icon": {
+      "19": "icon19.png",
+      "38": "icon38.png"
+    },
+    "default_title": "Create TVDB NFO"
+  }
+}
