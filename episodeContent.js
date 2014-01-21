@@ -1,6 +1,5 @@
-
 function getSeriesName() {
-	return $("[name^='EpisodeName_']:visible").val();
+	return $(".titlesection > h1:first").text();
 }
 
 function createXML() {
