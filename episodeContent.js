@@ -35,14 +35,14 @@ function createXML() {
 						.appendNodeWithValue("thumb", $("img.banner").prop('src').replace('/_cache', ''))
 						.appendNodeWithValue("credits", $("[name='Writer']").val().replace(/\|/g, " (Writer) / ") + ' (Writer)' + $("[name='GuestStars']").val().replace(/\|/g, ' (Guest Star) / ') + ' (Guest Star) / ');
 		
-		if (episodeJSON.Response == 'True') {
+		if (episodeJSON && episodeJSON.Response == 'True') {
 			xml = xml.appendNodeWithValue("rating", episodeJSON.imdbRating)
 					  .appendNodeWithValue("plot", episodeJSON.Plot)   
 		} else {
 			xml = xml.appendVisibleNode("plot", "Overview_")   
 		}
 						
-		if (seriesJSON.Response == 'True') {
+		if (seriesJSON && seriesJSON.Response == 'True') {
 			$.each(seriesJSON.Actors.split(', '), function(index, value) {
 				xml += '\n  <actor>' +
 					   '\n    <name>' + value + '</name>' +
