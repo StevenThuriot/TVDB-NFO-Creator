@@ -34,3 +34,32 @@ function getEpisode() {
 	
 	return undefined;
 }
+
+function saveXML(xml) {
+	alert(xml); //TODO: Remove
+	var blob = new Blob([xml], { type: 'text/xml' }); //application/octet-stream 
+	
+	if (arguments.length > 1) {
+		var filename = arguments[1] + '.nfo';
+	} else {		
+		var filename = 'tvshow.nfo';
+	}
+	
+	saveAs(blob, filename)
+}
+
+
+
+
+
+
+
+
+
+
+
+chrome.runtime.onMessage.addListener(function(msg, sender, response) {
+    if (msg.action && (msg.action == "createXML")) {
+        createXML();
+    }
+});

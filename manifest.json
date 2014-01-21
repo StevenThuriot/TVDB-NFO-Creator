@@ -20,12 +20,12 @@
   },
   
  "content_scripts": [ {
-    "js": [ "jquery.min.js", "shared.js", "episodeContent.js" ],
+    "js": [ "jquery.min.js", "/FileSaver.js/FileSaver.js", "shared.js", "episodeContent.js" ],
     "matches": [ "http://thetvdb.com/?tab=episode&seriesid=*&seasonid=*&id=*", "http://www.thetvdb.com/?tab=episode&seriesid=*&seasonid=*&id=*"],
     "run_at": "document_end"
   },
   {
-    "js": [ "jquery.min.js", "shared.js", "seriesContent.js" ],
+    "js": [ "jquery.min.js", "/FileSaver.js/FileSaver.js", "shared.js", "seriesContent.js" ],
     "matches": [ "http://thetvdb.com/?tab=series&id=*", "http://www.thetvdb.com/?tab=series&id=*"],
     "run_at": "document_end"
   }],
