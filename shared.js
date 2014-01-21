@@ -11,7 +11,7 @@ String.prototype.appendNodeWithValue = function(node, value) {
 };
 
 function getDataByName(name) {
-	return $.getJSON('http://www.omdbapi.com/?t=' + name, function(data) { return data });
+	return $.getJSON('http://www.omdbapi.com/?plot=full&t=' + name, function(data) { return data });
 }
 
 function getSeries() {
