@@ -6,7 +6,6 @@ Google Chrome Extension to save TVDB pages as an NFO file which can be used for 
 
 To do
 ====
-- Save file to disk
 - Create series nfo
 - ???
 - Profit
