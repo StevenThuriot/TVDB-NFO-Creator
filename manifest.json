@@ -1,40 +1,42 @@
- {
-  "name": "TVDB NFO Creator",
-  
-  "version": "1.0",
-	
-  "manifest_version": 2,
-  
-  "description": "Save TVDB pages as an NFO which can be used for scraping in XBMC.",
-  
-  "icons" : {
-	  "48" : "icons/icon48.png",
-	  "128" : "icons/icon128.png"
-	},
-  
-  "permissions": ["tabs", "declarativeContent", "http://www.thetvdb.com/", "http://thetvdb.com/"],
-  
-  "background": {
-    "scripts": ["background/background.js"],
-	"persistent": false
-  },
-  
- "content_scripts": [ {
-    "js": [ "inject/jquery.min.js", "inject/FileSaver.js/FileSaver.js", "inject/shared.js", "inject/episodeContent.js" ],
-    "matches": [ "http://thetvdb.com/?tab=episode&seriesid=*&seasonid=*&id=*", "http://www.thetvdb.com/?tab=episode&seriesid=*&seasonid=*&id=*"],
-    "run_at": "document_end"
-  },
-  {
-    "js": [ "inject/jquery.min.js", "inject/FileSaver.js/FileSaver.js", "inject/shared.js", "inject/seriesContent.js" ],
-    "matches": [ "http://thetvdb.com/?tab=series&id=*", "http://www.thetvdb.com/?tab=series&id=*"],
-    "run_at": "document_end"
-  }],
-  
-  "page_action": {
-    "default_icon": {
-      "19": "icons/icon19.png",
-      "38": "icons/icon38.png"
+{
+    "name": "TVDB NFO Creator",
+
+    "version": "1.0",
+
+    "manifest_version": 2,
+
+    "description": "Save TVDB pages as an NFO which can be used for scraping in XBMC.",
+
+    "icons": {
+        "48": "icons/icon48.png",
+        "128": "icons/icon128.png"
     },
-    "default_title": "Create TVDB NFO"
-  }
+
+    "permissions": ["tabs", "declarativeContent", "http://www.thetvdb.com/", "http://thetvdb.com/"],
+
+    "background": {
+        "scripts": ["background/background.js"],
+        "persistent": false
+    },
+
+    "content_scripts": [
+        {
+            "js": [ "inject/jquery.min.js", "inject/FileSaver.js/FileSaver.js", "inject/shared.js", "inject/episodeContent.js" ],
+            "matches": [ "http://thetvdb.com/?tab=episode&seriesid=*&seasonid=*&id=*", "http://www.thetvdb.com/?tab=episode&seriesid=*&seasonid=*&id=*"],
+            "run_at": "document_end"
+        },
+        {
+            "js": [ "inject/jquery.min.js", "inject/FileSaver.js/FileSaver.js", "inject/shared.js", "inject/seriesContent.js" ],
+            "matches": [ "http://thetvdb.com/?tab=series&id=*", "http://www.thetvdb.com/?tab=series&id=*"],
+            "run_at": "document_end"
+        }
+    ],
+
+    "page_action": {
+        "default_icon": {
+            "19": "icons/icon19.png",
+            "38": "icons/icon38.png"
+        },
+        "default_title": "Create TVDB NFO"
+    }
 }
