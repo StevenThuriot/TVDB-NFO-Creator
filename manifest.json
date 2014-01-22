@@ -1,4 +1,6 @@
 {
+    "manifest_version": 2,
+    
     "name": "TVDB NFO Creator",
 
     "version": "1.0",

@@ -1,45 +1,82 @@
-String.prototype.appendVisibleNode = function (node, elementName) {
-    return this + '\n  <' + node + '>' + $("[name^='" + elementName + "']:visible").val() + '</' + node + '>'
-};
-
-String.prototype.appendNode = function (node, elementName) {
-    return this + '\n  <' + node + '>' + $("[name='" + elementName + "']").val() + '</' + node + '>'
-};
-
-String.prototype.appendNodeWithValue = function (node, value) {
-    return this + '\n  <' + node + '>' + value + '</' + node + '>'
-};
-
 function getDataByName(name) {
     return $.getJSON('http://www.omdbapi.com/?plot=full&t=' + name, function (data) {
-        return data
+        return data;
     });
 }
 
 function getSeries() {
     var series = getSeriesName();
-    return getDataByName(series);
+    if (series && series != '') {
+        return getDataByName(series);
+    }
 }
 
 function getEpisode() {
     var imdb = $("[name=IMDB_ID]").val();
 
-    if (imdb != '') {
+    if (imdb && imdb != '') {
         return $.getJSON('http://omdbapi.com/?plot=full&i=' + imdb, function (data) {
-            return data
+            return data;
         });
     }
 
     imdb = $("[name^='EpisodeName_']:visible").val();
 
-    if (imdb != '') {
+    if (imdb && imdb != '') {
         return getDataByName(imdb);
     }
-
-    return undefined;
 }
 
-function saveXML(xml) {
+function json2xml(o, tab) {
+   var toXml = function(v, name, ind) {
+      var xml = '';
+       
+      if (v instanceof Array) {
+         for (var i=0, n=v.length; i<n; i++)
+            xml += toXml(v[i], name, ind.replace("\t", "") + "\t");
+      }
+      else if (typeof(v) == "object") {
+         var hasChild = false;
+         xml += ind + "<" + name;
+         for (var m in v) {
+            if (m.charAt(0) == "@")
+               xml += " " + m.substr(1) + "=\"" + v[m].toString() + "\"";
+            else
+               hasChild = true;
+         }
+          
+         xml += (hasChild ? ">" : "/>") + '\n';
+          
+         if (hasChild) {
+            for (var m in v) {
+               if (m == "#text")
+                  xml += v[m];
+               else if (m == "#cdata")
+                  xml += "<![CDATA[" + v[m] + "]]>";
+               else if (m.charAt(0) != "@")
+                  xml += toXml(v[m], m, ind+"\t");
+            }
+            xml += (xml.charAt(xml.length-1)=="\n"?ind:"") + "</" + name + ">\n";
+         }
+      }
+      else {
+         xml += ind + "<" + name + ">" + v.toString() +  "</" + name + ">\n";
+      }
+      return xml;
+   }, xml='<?xml version="1.0" encoding="utf-8"?>\n';
+    
+   for (var m in o)
+      xml += toXml(o[m], m, "");
+    
+    if (tab)
+        xml = xml.replace(/\t/g, tab);
+    
+   return xml;
+}
+
+function save(o) {
+    var xml = json2xml(o)
+    
     alert(xml); //TODO: Remove
     var blob = new Blob([xml], { type: 'text/xml' }); //application/octet-stream
 
@@ -48,13 +85,13 @@ function saveXML(xml) {
     } else {
         var filename = 'tvshow.nfo';
     }
-
+    
     saveAs(blob, filename)
 }
 
 
 chrome.runtime.onMessage.addListener(function (msg, sender, response) {
-    if (msg.action && (msg.action == "createXML")) {
-        createXML();
+    if (msg.action && (msg.action === "createInfo")) {
+        createInfo();
     }
 });
