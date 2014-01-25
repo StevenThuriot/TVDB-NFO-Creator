@@ -89,6 +89,16 @@ function save(o) {
     saveAs(blob, filename)
 }
 
+function getQueryString() {
+    var queries = {};
+    $.each(document.location.search.substr(1).split('&'),function(c,q){
+        var i = q.split('=');
+        queries[i[0].toString()] = i[1].toString();
+    });
+    
+    return queries;
+}
+
 
 chrome.runtime.onMessage.addListener(function (msg, sender, response) {
     if (msg.action && (msg.action === "createInfo")) {
