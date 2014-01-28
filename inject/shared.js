@@ -1,3 +1,20 @@
+function isEmptyString(value) {
+	var trimmedValue = value.replace(/ /gi, '');
+	
+	if (trimmedValue.length == 0) return true;
+	if (trimmedValue == 'N/A') return true;
+	
+	return false;
+}
+
+function stringHasValue(value) {
+	return !isEmptyString(value);
+}
+
+function trimPipes(value) {
+	return value.replace(/^\||\|$/g, '');
+}
+
 function getDataByName(name) {
     return $.getJSON('http://www.omdbapi.com/?plot=full&t=' + name, function (data) {
         return data;
