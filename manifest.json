@@ -5,8 +5,6 @@
 
     "version": "1.0",
 
-    "manifest_version": 2,
-
     "description": "Save TVDB pages as an NFO which can be used for scraping in XBMC.",
 
     "icons": {
