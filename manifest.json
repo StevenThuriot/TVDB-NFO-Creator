@@ -24,19 +24,29 @@
             "matches": [ "http://thetvdb.com/?tab=episode&seriesid=*&seasonid=*&id=*", "http://www.thetvdb.com/?tab=episode&seriesid=*&seasonid=*&id=*"],
             "run_at": "document_end",
             
-            "js": [ "inject/jquery.min.js", "inject/FileSaver.js/FileSaver.js", "nprogress/nprogress.js", "inject/shared.js", "inject/episodeContent.js" ]
+            "js": [ 
+                "inject/jquery.min.js", 
+                "inject/FileSaver.js/FileSaver.js", 
+                "inject/nprogress/nprogress.js", 
+                "inject/shared.js", 
+                "inject/episodeContent.js" ]
         },
         {
             "matches": [ "http://thetvdb.com/?tab=series&id=*", "http://www.thetvdb.com/?tab=series&id=*"],
             "run_at": "document_end",
             
-            "js": [ "inject/jquery.min.js", "inject/FileSaver.js/FileSaver.js", "nprogress/nprogress.js", "inject/shared.js", "inject/seriesContent.js" ]
+            "js": [
+                "inject/jquery.min.js",
+                "inject/FileSaver.js/FileSaver.js",
+                "inject/nprogress/nprogress.js", 
+                "inject/shared.js", 
+                "inject/seriesContent.js" ]
         },
         { //Work-around: Chrome does not inject CSS when 'matches' is based on the query string.
             "matches": [ "http://thetvdb.com/*", "http://www.thetvdb.com/*"],
             "run_at": "document_end",
             
-            "css": ["nprogress/nprogress.css"]
+            "css": ["inject/nprogress/nprogress.css"]
         }
     ],
     

@@ -1,6 +1,6 @@
 [submodule "inject/FileSaver.js"]
 	path = inject/FileSaver.js
 	url = https://github.com/eligrey/FileSaver.js.git
-[submodule "nprogress"]
-	path = nprogress
+[submodule "inject/nprogress"]
+	path = inject/nprogress
 	url = https://github.com/rstacruz/nprogress.git
