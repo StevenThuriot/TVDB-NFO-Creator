@@ -104,6 +104,8 @@ function save(o) {
     }
     
     saveAs(blob, filename)
+    NProgress.done();
+    isCreatingInfo = false;
 }
 
 function getQueryString() {
@@ -117,8 +119,17 @@ function getQueryString() {
 }
 
 
-chrome.runtime.onMessage.addListener(function (msg, sender, response) {
+var isCreatingInfo = false;
+chrome.runtime.onMessage.addListener(function (msg, sender) {    
     if (msg.action && (msg.action === "createInfo")) {
+        if (isCreatingInfo) {
+            console.log("Already creating an nfo..");
+            return;
+        }
+        
+        isCreatingInfo = true;            
+        NProgress.start();
+        
         createInfo();
     }
 });

@@ -8,6 +8,5 @@ To do
 ====
 - Add TVDB api. (Optional use via options page)
 - When adding an options page, allow the user to chose not to call omdb and only use the data on TVDB page itself.
-- Add an 'in progress' icon for when data is being fetched.
 - ???
 - Profit

@@ -31,6 +31,8 @@ function createInfo() {
     }
     
     var information = $('h1:contains("Information")').parent().find('tr');
+    
+    NProgress.set(0.2);
 
     var infoObject = new Object();
     jQuery.each(information, function(key, value) { 
@@ -69,7 +71,11 @@ function createInfo() {
         details.studio = infoObject.Network;
     }
     
-    $.when(getSeries()).then(function (data) {    
+    NProgress.set(0.4);
+    
+    $.when(getSeries()).then(function (data) {        
+            NProgress.set(0.7); 
+        
             if (data && data.Response == 'True') {    
                 details.plot = data.Plot;
                 details.premiered = data.Released;
@@ -109,6 +115,8 @@ function createInfo() {
                     });
                 }
             }            
+        
+            NProgress.set(0.9);
     
             var nfo = { tvshow : details };
             save(nfo);

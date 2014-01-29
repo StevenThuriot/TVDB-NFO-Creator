@@ -10,8 +10,12 @@ function createInfo() {
     if (epCall) {
         calls.push(epCall);
     }
+    
+    NProgress.set(0.2);
 
     $.when.apply($, calls).then(function () {        
+        NProgress.set(0.7);
+        
         if (arguments.length > 0 && arguments[0]) {
             var seriesJSON = arguments[0][0];
         }
@@ -98,8 +102,10 @@ function createInfo() {
                 }
             });
         }
+        
+        NProgress.set(0.9);
 
-        var nfo = { episodedetails : details };
+        var nfo = { episodedetails : details };        
         save(nfo, getSeriesName() + ' - ' + details.title);
     });
 }
