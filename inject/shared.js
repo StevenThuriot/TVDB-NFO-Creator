@@ -1,19 +1,19 @@
-function isEmptyString(value) {
-	var trimmedValue = value.replace(/ /gi, '');
-	
+String.prototype.isEmpty = function() {
+	var trimmedValue = this.replace(/ /gi, '');
+
 	if (trimmedValue.length == 0) return true;
 	if (trimmedValue == 'N/A') return true;
-	
+
 	return false;
-}
+};
 
-function stringHasValue(value) {
-	return !isEmptyString(value);
-}
+String.prototype.hasValue = function() {
+	return !this.isEmpty();
+};
 
-function trimPipes(value) {
-	return value.replace(/^\||\|$/g, '');
-}
+String.prototype.trimPipes = function() {
+	return this.replace(/^\||\|$/g, '');
+};
 
 function getDataByName(name) {
     return $.getJSON('http://www.omdbapi.com/?plot=full&t=' + name, function (data) {
@@ -91,8 +91,18 @@ function json2xml(o, tab) {
    return xml;
 }
 
-function save(o) {
-    var xml = json2xml(o)
+function getQueryString() {
+    var queries = {};
+    $.each(document.location.search.substr(1).split('&'),function(c,q){
+        var i = q.split('=');
+        queries[i[0].toString()] = i[1].toString();
+    });
+    
+    return queries;
+}
+
+function saveAsNFO(o) {
+	var xml = json2xml(o);
     
     alert(xml); //TODO: Remove
     var blob = new Blob([xml], { type: 'text/xml' }); //application/octet-stream
@@ -107,17 +117,6 @@ function save(o) {
     NProgress.done();
     isCreatingInfo = false;
 }
-
-function getQueryString() {
-    var queries = {};
-    $.each(document.location.search.substr(1).split('&'),function(c,q){
-        var i = q.split('=');
-        queries[i[0].toString()] = i[1].toString();
-    });
-    
-    return queries;
-}
-
 
 var isCreatingInfo = false;
 chrome.runtime.onMessage.addListener(function (msg, sender) {    

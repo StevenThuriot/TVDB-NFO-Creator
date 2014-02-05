@@ -33,41 +33,41 @@ function createInfo() {
         }
         
 		var aired = $("[name='FirstAired']").val();
-		if (stringHasValue(aired)) {
+		if (aired.hasValue()) {
 			details.aired = aired;
 		}
 		
 		var season = $(".titlesection > h2:first").text().replace(/[a-zA-Z ]/ig, '');
-		if (stringHasValue(season)) {
+		if (season.hasValue()) {
 			details.season = season;
 		}
 		
 		var episode = $("[name='EpisodeNumber']").val();
-		if (stringHasValue(episode)) {
+		if (episode.hasValue()) {
 			details.episode = episode;
 		}
 		
-		var director = trimPipes($("[name='Director']").val());
-		if (stringHasValue(director)) {
+		var director = $("[name='Director']").val().trimPipes();
+		if (director.hasValue()) {
 			details.director = director;
 		}
 		
 		var thumb = $("img.banner").prop('src').replace('/_cache', '');
-		if (stringHasValue(thumb)) {
+		if (thumb.hasValue()) {
 			details.thumb = thumb;
 		}
 		
-		var writer = trimPipes($("[name='Writer']").val());
-		if (stringHasValue(writer)) {
+		var writer = $("[name='Writer']").val().trimPipes();
+		if (writer.hasValue()) {
 			writer = writer.replace(/\|/g, " (Writer) / ") + ' (Writer)'
 			details.credits = writer;
 		}
 		
-		var guests = trimPipes($("[name='GuestStars']").val());
-		if (stringHasValue(guests)) {
+		var guests = $("[name='GuestStars']").val().trimPipes();
+		if (guests.hasValue()) {
 			guests = guests.replace(/\|/g, ' (Guest Star) / ') + ' (Guest Star)';
 			
-			if (stringHasValue(writer)) {
+			if (writer.hasValue()) {
 				details.credits += ' / ' + guests;
 			} else {
 				details.credits = guests;
@@ -76,15 +76,15 @@ function createInfo() {
 
         if (episodeJSON && episodeJSON.Response == 'True') {
 			var rating = episodeJSON.imdbRating;
-			if (stringHasValue(rating)) {
+			if (rating.hasValue()) {
 				details.rating = rating;
 			}
 			var plot = episodeJSON.Plot;
         }
 				
-		if (!plot || plot == 'N/A' || isEmptyString(plot)) {
+		if (!plot || plot == 'N/A' || plot.isEmpty()) {
 			var tvdbplot = $("[name^='Overview_']:visible").val();
-			if (stringHasValue(tvdbplot)) {
+			if (tvdbplot.hasValue()) {
 				details.plot = tvdbplot;
 			}
 		} else {
@@ -106,6 +106,6 @@ function createInfo() {
         NProgress.set(0.9);
 
         var nfo = { episodedetails : details };        
-        save(nfo, getSeriesName() + ' - ' + details.title);
+		saveAsNFO(nfo, getSeriesName() + ' - ' + details.title);
     });
 }

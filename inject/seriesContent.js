@@ -119,6 +119,6 @@ function createInfo() {
             NProgress.set(0.9);
     
             var nfo = { tvshow : details };
-            save(nfo);
+            saveAsNFO(nfo);
         });
 }

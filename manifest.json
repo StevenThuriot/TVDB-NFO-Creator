@@ -12,7 +12,7 @@
         "128": "icons/icon128.png"
     },
 
-    "permissions": ["tabs", "declarativeContent", "http://www.thetvdb.com/", "http://thetvdb.com/"],
+    "permissions": ["tabs", "http://www.thetvdb.com/", "http://thetvdb.com/"],
 
     "background": {
         "scripts": ["background/background.js"],
