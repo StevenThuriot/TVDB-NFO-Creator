@@ -1,10 +1,10 @@
 String.prototype.isEmpty = function() {
 	var trimmedValue = this.replace(/ /gi, '');
 
-	if (trimmedValue.length == 0) return true;
-	if (trimmedValue == 'N/A') return true;
+	if (trimmedValue === 'N/A') return true;
+	if (trimmedValue) return false;
 
-	return false;
+	return true;
 };
 
 String.prototype.hasValue = function() {
@@ -23,7 +23,7 @@ function getDataByName(name) {
 
 function getSeries() {
     var series = getSeriesName();
-    if (series && series != '') {
+    if (series) {
         return getDataByName(series);
     }
 }
@@ -31,7 +31,7 @@ function getSeries() {
 function getEpisode() {
     var imdb = $("[name=IMDB_ID]").val();
 
-    if (imdb && imdb != '') {
+    if (imdb) {
         return $.getJSON('http://omdbapi.com/?plot=full&i=' + imdb, function (data) {
             return data;
         });
@@ -39,7 +39,7 @@ function getEpisode() {
 
     imdb = $("[name^='EpisodeName_']:visible").val();
 
-    if (imdb && imdb != '') {
+    if (imdb) {
         return getDataByName(imdb);
     }
 }
@@ -80,8 +80,9 @@ function json2xml(o, tab) {
          xml += ind + "<" + name + ">" + v.toString() +  "</" + name + ">\n";
       }
       return xml;
-   }, xml='<?xml version="1.0" encoding="utf-8"?>\n';
+   };
     
+   var xml = '<?xml version="1.0" encoding="utf-8"?>\n';
    for (var m in o)
       xml += toXml(o[m], m, "");
     
@@ -102,16 +103,18 @@ function getQueryString() {
 }
 
 function saveAsNFO(o) {
-	var xml = json2xml(o);
-    
-    alert(xml); //TODO: Remove
-    var blob = new Blob([xml], { type: 'text/xml' }); //application/octet-stream
-
     if (arguments.length > 1) {
         var filename = arguments[1] + '.nfo';
     } else {
         var filename = 'tvshow.nfo';
     }
+    
+    var xml = json2xml(o);
+    
+    //TODO: Remove
+    alert(xml);
+    
+    var blob = new Blob([xml], { type: 'text/xml' }); //application/octet-stream
     
     saveAs(blob, filename)
     NProgress.done();
