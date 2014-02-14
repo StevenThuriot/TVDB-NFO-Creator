@@ -26,10 +26,18 @@ function createInfo() {
         
         var details = new Object();
 
-        if (episodeJSON && episodeJSON.Response == 'True') {
+        if (episodeJSON && episodeJSON.Response == 'True' && episodeJSON.Title) {
             details.title = episodeJSON.Title;
         } else {
-            details.title = $("[name^='EpisodeName_']:visible").val();
+            var parsedTitle = $("[name^='EpisodeName_']:visible").val();
+            
+            if (!parsedTitle) {
+            	parsedTitle = $(".titlesection > h3:first").text().split(': ')[1];
+            }
+            
+            if (parsedTitle) {
+            	details.title = $("[name^='EpisodeName_']:visible").val();
+            }
         }
         
 		var aired = $("[name='FirstAired']").val();
